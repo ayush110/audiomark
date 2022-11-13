@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:songhut/screens/home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:songhut/constants.dart';
+import 'package:songhut/provider/songModelProvider.dart';
+import 'package:songhut/screens/homepage/home_page.dart';
+import 'package:songhut/screens/splash_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => SongModelProvider(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,9 +21,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Naviation Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
+        sliderTheme: const SliderThemeData(
+          showValueIndicator: ShowValueIndicator.always,
+          rangeValueIndicatorShape: PaddleRangeSliderValueIndicatorShape(),
+          trackHeight: 2,
+        ),
       ),
-      home: const HomePage(title: 'Welcome Back!'),
+      home: const SplashScreen(),
     );
   }
 }
