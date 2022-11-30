@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:on_audio_query/on_audio_query.dart';
+import 'package:on_audio_room/on_audio_room.dart';
 import 'package:provider/provider.dart';
 import 'package:songhut/screens/songplayer/components/adjust_speed_button.dart';
 import 'package:songhut/screens/songplayer/components/favorite_button.dart';
@@ -15,13 +16,14 @@ import '../../provider/songModelProvider.dart';
 import '../coming_soon.dart';
 
 class SongPlayer extends StatefulWidget {
-  const SongPlayer({
-    super.key,
-    required this.songModelList,
-    required this.audioPlayer,
-  });
+  const SongPlayer(
+      {super.key,
+      required this.songModelList,
+      required this.audioPlayer,
+      required this.audioRoom});
   final List<SongModel> songModelList;
   final AudioPlayer audioPlayer;
+  final OnAudioRoom audioRoom;
 
   @override
   State<SongPlayer> createState() => _SongPlayerState();
@@ -355,7 +357,10 @@ class _SongPlayerState extends State<SongPlayer> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        FavoriteButton(audioPlayer: widget.audioPlayer),
+                        FavoriteButton(
+                            audioPlayer: widget.audioPlayer,
+                            audioRoom: widget.audioRoom,
+                            song: widget.songModelList[0]),
                         ShuffleButton(audioPlayer: widget.audioPlayer),
                         AdjustSpeed(audioPlayer: widget.audioPlayer),
                         LoopButton(audioPlayer: widget.audioPlayer),
