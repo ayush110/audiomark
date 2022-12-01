@@ -39,6 +39,9 @@ class _FavoriteButtonState extends State<FavoriteButton> {
     for (var element in temp) {
       if (element.displayName == widget.song.displayName) {
         favourite = true;
+        setState(() {
+          entityKey = element.key;
+        });
         break;
       }
     }
@@ -46,30 +49,37 @@ class _FavoriteButtonState extends State<FavoriteButton> {
     return favourite;
   }
 
+  Color heartColor = kLightColor3;
+  int entityKey = -1;
+
   @override
   Widget build(BuildContext context) {
     setState(() {
-      favourite:
-      favouriteOrNot();
+      heartColor = favouriteOrNot() ? Colors.red : kLightColor3;
     });
     return IconButton(
       onPressed: () {
         if (!favouriteOrNot()) {
           setState(() {
-            favourite:
-            favouriteOrNot();
+            heartColor = Colors.red;
           });
           dynamic temp = widget.audioRoom.addTo(
             RoomType.FAVORITES,
             widget.song.getMap.toFavoritesEntity(),
           );
         } else {
-          print("-------------------------");
+          setState(() {
+            heartColor = kLightColor3;
+          });
+          dynamic deleteFromResult = OnAudioRoom().deleteFrom(
+            RoomType.FAVORITES,
+            entityKey,
+          );
         }
       },
-      icon: const Icon(
+      icon: Icon(
         Icons.favorite,
-        color: kLightColor3,
+        color: heartColor,
       ),
     );
   }
