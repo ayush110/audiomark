@@ -81,9 +81,10 @@ class _HomePage extends State<MyHomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => SongPlayer(
-                                        songModelList: [item.data![index]],
-                                        audioPlayer: _audioPlayer)));
+                                  builder: (context) => SongPlayer(
+                                      songModelList: [item.data![index]],
+                                      audioPlayer: _audioPlayer),
+                                ));
                           },
                           child: MusicTile(
                             songModel: item.data![index],
